@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.mainContainer {
+    font-family: 'Press Start 2P', cursive;
+    background-color: rgba(56, 123, 82, 0.534);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 2px solid rgba(84, 173, 143, 0.586);
+    padding: 4px;
+    border-radius: 4px;
+    height: 80px;
+    width:100%;
+}
+
+.mainContainer img{
+    height: 98px;
+}
+
+.menu {
+    display: flex;
+    width: 30%;
+    height: 100%;
+    justify-content: space-around;
+    align-items:flex-end;
+    padding-bottom: 5px;
+    padding-left: 100px;
+}
+
+
+
+.btn {
+    color: rgb(244, 255, 251);
+    background-color: rgba(65, 65, 130, 0.445);
+    width: 160px;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    margin-inline-start: auto;
+    border: 2px solid rgb(49, 105, 49);
+    border-radius: 15px;
+    font-size: 15px;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    text-justify: distribute;
+    padding-left: 40px;
+    
+}
+
+
+
+
+.Link {
+    text-decoration: none;
+    text-align:justify;
+}
+
+.syncButton {
+    width: 10px;
+    height: 10px;
+    background-color: brown;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor:pointer;
+}

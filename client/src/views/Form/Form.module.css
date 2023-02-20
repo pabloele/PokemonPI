@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.containerPrincipal{
+    background-image: linear-gradient(to bottom, blue, white);
+    display: flex;
+    flex-direction: row;
+    height: 768px;
+}
+.left{
+    width:15%;
+    background-color: none;
+}
+
+.right {
+    width: 15%;
+    background-color: none;
+}
+.FormContainer {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(165, 42, 42, 0.312);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.FormContainer input{
+    display: flex;
+font-family: 'Silkscreen', cursive;
+    height: 100%;
+    width: 100%;
+    border-radius: 15px; 
+}
+
+.FormContainer label{
+    font-family: 'Silkscreen', cursive;
+    padding: 2px;
+}
+
+.tiposSelectorsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.tiposSectorsContainer select{
+    font-family: 'Silkscreen', cursive;
+        height: 40px;
+        width: 150px;
+        border: 2px solid black;
+        border-radius: 15px;
+        background-color: rgb(42, 165, 89);
+}
+
+.submit {
+    font-family: 'Press Start 2P', cursive;
+        height: 40px;
+        width: auto;
+        border: 2px solid black;
+        border-radius: 15px;
+        background-color: rgb(153, 165, 42);
+        cursor: pointer;
+        margin-top: 30px;
+        margin-left: 35%;
+}
+.style.cajaTiposYSubmitBtn{
+    /* display: flex;
+    flex-direction: column; */
+    background-color: aqua;
+    justify-content:center;
+    width: 70%;
+    
+
+}
+
+.cajaBotonSubmit {
+    justify-content: space-between;
+}
+
+
+.btnBack {
+    font-family: 'Press Start 2P', cursive;
+    height: 40px;
+    width: auto;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: rgb(42, 165, 89);
+    cursor: pointer;
+    
+}

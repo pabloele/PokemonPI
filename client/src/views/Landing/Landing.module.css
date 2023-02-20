@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); 
+/* font-family: 'Press Start 2P',
+cursive; */
+
+.mainLanding {
+
+    background-image: url( "../../resources/img/landing.background.jpeg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.mainLanding button {
+    font-family: 'Press Start 2P', cursive;
+    border: 5px solid black;
+    padding: 12px 24px;
+    border-radius: 15px;
+    background-color: #4CAF50;
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
