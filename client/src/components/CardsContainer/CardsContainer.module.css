@@ -2,15 +2,16 @@
 
 .mainContainer {
     
-    background-image: url("../../resources/img/wallpapersden.com_pokemon-pikachu-art_1920x1080.jpg");
+    background-image: url("../../resources/img/wallpapersden.com_pokemon-pikachu-art_1920x1080.jpg"); 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: absolute;
-    background-attachment: fixed;
-    width: 100%;   
-        
+    width: 100vw;
+    height: 100vh; 
+    overflow: scroll;
+ 
 }
+
 
 .container {
     background-color: rgba(0, 0, 0, 0.212);
