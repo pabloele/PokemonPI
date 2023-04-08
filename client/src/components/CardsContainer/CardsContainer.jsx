@@ -120,7 +120,7 @@ const CardsContainer = () => {
 
   filteredPokemons = filtrarPorSource(filtrarPorTipo(filteredPokemons));
 
-  console.log("pokesfiltrados", filteredPokemons);
+  // console.log("pokesfiltrados", filteredPokemons);
   //PAGINA LOS POKEMONS FILTRADOS > currentPokemons
   let currentPokemons = filteredPokemons.slice(
     indexPrimerPoke,

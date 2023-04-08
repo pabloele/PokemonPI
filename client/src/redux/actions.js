@@ -47,7 +47,7 @@ export const getTipos = () => {
         httpAgent: new http.Agent({ keepAlive: true }),
         httpsAgent: new https.Agent({ keepAlive: true }),
       });
-      //console.log("tipssssssssssssss", tipos.data);
+
       dispatch({ type: GET_TIPOS, payload: tipos.data });
     };
 

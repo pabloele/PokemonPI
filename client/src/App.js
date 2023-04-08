@@ -2,12 +2,16 @@ import { Detail, Form, Landing, Home, About } from "./views";
 import { Route, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "./firebase-config";
 //import "./App.css";
 
 function App() {
-  console.log(process.env);
   const location = useLocation();
 
   const [userAut, setUserAut] = useState({
@@ -17,6 +21,11 @@ function App() {
     registerPassword: "",
   });
 
+  const [user, setUser] = useState({});
+
+  onAuthStateChanged(auth, (currentUser) => {
+    setUser(currentUser);
+  });
   const handleChange = (e) => {
     setUserAut({
       ...userAut,
@@ -26,26 +35,32 @@ function App() {
 
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(
+      await createUserWithEmailAndPassword(
         auth,
         userAut.registerEmail,
         userAut.registerPassword
       );
-      console.log(user);
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  const login = () => {};
+  const login = async () => {
+    try {
+      await signInWithEmailAndPassword(auth, userAut.email, userAut.password);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-  const logout = () => {};
+  const logout = () => {
+    signOut(auth);
+  };
 
   return (
     <div className="App">
       {location.pathname !== "/" && <NavBar />}
       <div className="App">
-        {/* TODO: Implement NavBar component */}
         <div>
           <input
             type="text"
@@ -80,6 +95,9 @@ function App() {
           />
           <button onClick={register}>crear usuario</button>
         </div>
+        {/* {console.log("USER                           ", user.email)} */}
+        <div>User logged in: {user?.email}</div>
+        <button onClick={logout}>sign out</button>
       </div>
       <Route exact path="/">
         <Landing />
