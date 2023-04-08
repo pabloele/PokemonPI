@@ -15,6 +15,10 @@ const Landing = () => {
 
   return (
     <div className={style.mainLanding}>
+      {/* <input type="text" placeholder="Nombre de usuario" />
+      <input type="password" placeholder="Contraseña" /> */}
+      {/* <button onClick={handleLogin}>Iniciar sesión</button> */}
+
       <Link to="/home">
         <button>INGRESAR A LA APP</button>
       </Link>
