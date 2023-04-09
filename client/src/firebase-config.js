@@ -23,9 +23,7 @@ export const auth = getAuth(app);
 
 export const storage = getStorage(app);
 
-export const uploadFile = (file) => {
+export const uploadFile = async (file) => {
   const storageRef = ref(storage, v4());
-  uploadBytes(storageRef, file).then((snapshot) => {
-    console.log(snapshot);
-  });
+  return await uploadBytes(storageRef, file);
 };

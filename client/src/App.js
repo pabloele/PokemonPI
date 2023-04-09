@@ -34,9 +34,14 @@ function App() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    uploadFile(file);
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const result = await uploadFile(file);
+      console.log(result);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
   const register = async () => {
     try {
