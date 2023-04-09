@@ -8,7 +8,8 @@ import {
   signOut,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "./firebase-config";
+import { auth, uploadFile } from "./firebase-config";
+
 //import "./App.css";
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    uploadFile(file);
+  };
   const register = async () => {
     try {
       await createUserWithEmailAndPassword(
@@ -57,6 +62,7 @@ function App() {
     signOut(auth);
   };
 
+  const [file, setFile] = useState(null);
   return (
     <div className="App">
       {location.pathname !== "/" && <NavBar />}
@@ -95,10 +101,22 @@ function App() {
           />
           <button onClick={register}>crear usuario</button>
         </div>
-        {/* {console.log("USER                           ", user.email)} */}
+
         <div>User logged in: {user?.email}</div>
         <button onClick={logout}>sign out</button>
       </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="file"
+          name="archivo"
+          id=""
+          onChange={(e) => {
+            setFile(e.target.files[0]);
+          }}
+        />
+        <button>Upload</button>
+      </form>
+
       <Route exact path="/">
         <Landing />
       </Route>
