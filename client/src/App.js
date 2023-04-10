@@ -8,7 +8,7 @@ import {
   signOut,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, uploadFile } from "./firebase-config";
+import { auth, uploadFile, db } from "./firebase-config";
 
 //import "./App.css";
 
@@ -68,6 +68,24 @@ function App() {
   };
 
   const [file, setFile] = useState(null);
+
+  const [neoPoke, setNeoPoke] = useState({
+    name: "",
+    imgUrl: "",
+  });
+
+  const dbFormHandleChange = (e) => {
+    setNeoPoke({
+      ...neoPoke,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const DbHandleSubmit = (e) => {
+    e.preventDefault();
+    console.log(neoPoke);
+  };
+
   return (
     <div className="App">
       {location.pathname !== "/" && <NavBar />}
@@ -118,6 +136,25 @@ function App() {
           onChange={(e) => {
             setFile(e.target.files[0]);
           }}
+        />
+
+        <button>Upload</button>
+      </form>
+
+      <form onSubmit={DbHandleSubmit}>
+        <input
+          type="text"
+          name="name"
+          id="dbPokeName"
+          onChange={dbFormHandleChange}
+          placeholder="name pokemon a db"
+        />
+        <input
+          type="url"
+          name="imgUrl"
+          id="pokeImgUrl"
+          onChange={dbFormHandleChange}
+          placeholder="url de imagen a db"
         />
         <button>Upload</button>
       </form>
