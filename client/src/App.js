@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth, uploadFile, db } from "./firebase-config";
+import { doc, setDoc } from "firebase/firestore";
 
 //import "./App.css";
 
@@ -81,9 +82,12 @@ function App() {
     });
   };
 
-  const DbHandleSubmit = (e) => {
+  const DbHandleSubmit = async (e) => {
     e.preventDefault();
-    console.log(neoPoke);
+
+    await setDoc(doc(db, "neoPokes", neoPoke.name), neoPoke);
+    // console.log(response);
+    //console.log(db);
   };
 
   return (
@@ -150,7 +154,7 @@ function App() {
           placeholder="name pokemon a db"
         />
         <input
-          type="url"
+          type="text"
           name="imgUrl"
           id="pokeImgUrl"
           onChange={dbFormHandleChange}
