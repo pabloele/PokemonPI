@@ -4,7 +4,18 @@ const {
   createPokemon,
   getPokemonByQuery,
   destroyPoke,
+  getApiPokemons,
 } = require("../controllers/pokemonsControllers");
+
+const getApiPokemonsHandler = async (req, res) => {
+  try {
+    const { offset } = req.query;
+    const resultado = await getApiPokemons(offset);
+    res.status(200).json(resultado);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 const getPokemonsHandler = async (req, res) => {
   const { name } = req.query;
@@ -96,4 +107,5 @@ module.exports = {
   getPokemonHandler,
   createPokemonHandler,
   deletePokemonHandler,
+  getApiPokemonsHandler,
 };

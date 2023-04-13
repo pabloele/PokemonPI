@@ -3,6 +3,7 @@ const { Pokemon, Tipo } = require("../db");
 const { idTypeByNombre } = require("./typesControllers");
 const http = require("http");
 const https = require("https");
+const { log } = require("console");
 
 // LIMPIA LOS DATOS OBTENIDOS EN LA BD Y LES DA FORMATO PARA MATCHEAR LA SALIDA CON LOS QUE VIENEN DE LA API
 
@@ -45,9 +46,9 @@ const filterData = (data) => {
 
 // TRAE TODOS LOS POKEMONES DE LA API CON LAS PROPIEDADES NECESARIAS PARA LA PÁGINA PRINCIPAL
 
-const getApiPokemons = async () => {
+const getApiPokemons = async (offset) => {
   let rawListado = await axios.get(
-    "https://pokeapi.co/api/v2/pokemon?limit=40",
+    `https://pokeapi.co/api/v2/pokemon?limit=50&offset=${offset}`,
     {
       timeout: 0,
       httpAgent: new http.Agent({ keepAlive: true }),
@@ -100,8 +101,8 @@ const getBdPokemons = async () => {
 };
 
 //TRAE TODOS LOS POKEMONES UNIFICANDO API Y DB
-const getAllPokemons = async () => {
-  const apiPokes = await getApiPokemons();
+const getAllPokemons = async (offset) => {
+  const apiPokes = await getApiPokemons(offset);
   const bdPokes = await getBdPokemons();
   const todosLosPokes = [...bdPokes, ...apiPokes];
 
@@ -279,4 +280,5 @@ module.exports = {
   createPokemon,
   getPokemonByQuery,
   destroyPoke,
+  getApiPokemons,
 };

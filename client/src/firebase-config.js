@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import { getFirestore } from "firebase/firestore";
+//import { getFirestore } from "firebase/firestore";
 import { v4 } from "uuid";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -28,4 +28,4 @@ export const uploadFile = async (file) => {
   const storageRef = ref(storage, v4());
   return await uploadBytes(storageRef, file);
 };
-export const db = getFirestore(app);
+//export const db = getFirestore(app);

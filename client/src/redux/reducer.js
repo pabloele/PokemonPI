@@ -1,4 +1,10 @@
-import { GET_POKEMONES, GET_TIPOS, GET_QUERY, SAVE_FILTERS } from "./actions";
+import {
+  GET_POKEMONES,
+  GET_TIPOS,
+  GET_QUERY,
+  SAVE_FILTERS,
+  ADD_POKEMONES,
+} from "./actions";
 
 const initialState = {
   Pokemones: [],
@@ -25,6 +31,16 @@ const rootReducer = (state = initialState, action) => {
           orderBy: action.payload.orderBy,
           source: action.payload.source,
         },
+      };
+    case ADD_POKEMONES:
+      console.log("datapedida //////////////////////", action.payload);
+      let pokemones = state.Pokemones;
+      pokemones = pokemones.concat(action.payload);
+      console.log("resultado//////////////////////", pokemones);
+
+      return {
+        ...state,
+        Pokemones: pokemones,
       };
     default:
       return { ...state };

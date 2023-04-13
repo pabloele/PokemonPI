@@ -3,6 +3,7 @@ export const GET_POKEMONES = "GET_POKEMONES";
 export const GET_TIPOS = "GET_TIPOS";
 export const SAVE_FILTERS = "SAVE_FILTERS";
 export const GET_QUERY = "GET_QUERY";
+export const ADD_POKEMONES = "ADD_POKEMONES";
 // ACTION CREATOR getPokes: ESTA FUNCION DEVUELVE UNA FUNCIÓN QUE DEVELVE ACTION TYPE Y PAYLOAD
 // ASYNCRÓNICAMENTE LUEGO DE RECIBIR LA INFORMACIÓN DEL SERVIDOR.
 // DADO QUE LA API NO RESPONDE A ESTA PETICIÓN SI SE REPITE EN UN INTERVALO DE TIEMPO MUY CORTO,
@@ -16,11 +17,14 @@ export const getPokes = () => {
 
     const pedirData = async () => {
       try {
-        apiData = await axios.get("http://localhost:3001/pokemons/", {
-          timeout: 0,
-          httpAgent: new http.Agent({ keepAlive: true }),
-          httpsAgent: new https.Agent({ keepAlive: true }),
-        });
+        apiData = await axios.get(
+          "http://localhost:3001/pokemons?limit=50&offset=0",
+          {
+            timeout: 0,
+            httpAgent: new http.Agent({ keepAlive: true }),
+            httpsAgent: new https.Agent({ keepAlive: true }),
+          }
+        );
         const Pokemones = apiData.data;
         dispatch({ type: GET_POKEMONES, payload: Pokemones });
       } catch (error) {
@@ -95,5 +99,34 @@ export const saveFilters = (
     };
 
     guardaFiltros();
+  };
+};
+
+export const addPokes = (offset) => {
+  return async function (dispatch) {
+    let apiData;
+
+    const pedirData = async () => {
+      try {
+        apiData = await axios.get(
+          `http://localhost:3001/pokemons/addPokemons?limit=50&&offset=${offset}`,
+          {
+            timeout: 0,
+            httpAgent: new http.Agent({ keepAlive: true }),
+            httpsAgent: new https.Agent({ keepAlive: true }),
+          }
+        );
+        const Pokemones = apiData.data;
+
+        dispatch({ type: ADD_POKEMONES, payload: Pokemones });
+      } catch (error) {
+        console.log(
+          `El servidor no devolvió la información solicitada. Reintentando en 60 segundos...`
+        );
+        setTimeout(pedirData, 30000);
+      }
+    };
+
+    pedirData();
   };
 };

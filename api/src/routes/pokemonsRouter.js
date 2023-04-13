@@ -4,11 +4,13 @@ const {
   getPokemonHandler,
   createPokemonHandler,
   deletePokemonHandler,
+  getApiPokemonsHandler,
 } = require("../handlers/pokemonsHandlers");
 
 const pokemonsRouter = Router();
 
 pokemonsRouter.get("/", getPokemonsHandler);
+pokemonsRouter.get("/addPokemons", getApiPokemonsHandler);
 
 pokemonsRouter.get("/:id", getPokemonHandler);
 

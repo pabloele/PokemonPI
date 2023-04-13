@@ -60,6 +60,7 @@ const CardsContainer = () => {
     FiltrosYOrden.selectedType,
     FiltrosYOrden.orderBy,
     FiltrosYOrden.dispatch,
+    Pokemons,
   ]);
   //
 
