@@ -9,6 +9,9 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth, uploadFile } from "./firebase-config";
+import LoginForm from "./components/Login/LoginForm";
+import RegisterForm from "./components/RegisterForm/RegisterForm";
+
 //import { doc, setDoc } from "firebase/firestore";
 
 //import "./App.css";
@@ -124,7 +127,12 @@ function App() {
 
         <button>Upload</button>
       </form>
-
+      <Route exact path="/register">
+        <RegisterForm />
+      </Route>
+      <Route exact path="/login">
+        <LoginForm />
+      </Route>
       <Route exact path="/">
         <Landing />
       </Route>

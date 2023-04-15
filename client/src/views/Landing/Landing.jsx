@@ -19,7 +19,7 @@ const Landing = () => {
       <input type="password" placeholder="Contraseña" /> */}
       {/* <button onClick={handleLogin}>Iniciar sesión</button> */}
 
-      <Link to="/home">
+      <Link to="/login">
         <button>INGRESAR A LA APP</button>
       </Link>
     </div>
