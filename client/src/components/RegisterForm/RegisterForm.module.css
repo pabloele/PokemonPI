@@ -44,7 +44,7 @@
 }
 
 .registerBtn {
-  width: 30%;
+  width: fit-content;
   height: 3em;
   background-color: #4c7faf;
   display: flex;
@@ -67,4 +67,14 @@
   flex-direction: column;
   align-items: start;
   justify-content: space-evenly;
+}
+
+.link {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.error {
+  color: red;
+  font-size: 0.7em;
 }

@@ -11,6 +11,7 @@ import {
 import { auth, uploadFile } from "./firebase-config";
 import LoginForm from "./components/Login/LoginForm";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
+import { UserAuthContextProvider } from "./context/authContext";
 
 //import { doc, setDoc } from "firebase/firestore";
 
@@ -127,19 +128,21 @@ function App() {
 
         <button>Upload</button>
       </form>
-      <Route exact path="/register">
-        <RegisterForm />
-      </Route>
-      <Route exact path="/login">
-        <LoginForm />
-      </Route>
-      <Route exact path="/">
-        <Landing />
-      </Route>
-      <Route path="/home" render={() => <Home />} />
-      <Route path="/detail/:id" component={Detail} />
-      <Route exact path="/create" component={Form} />
-      <Route exact path="/about" component={About} />
+      <UserAuthContextProvider>
+        <Route exact path="/">
+          <Landing />
+        </Route>
+        <Route exact path="/register">
+          <RegisterForm />
+        </Route>
+        <Route exact path="/login">
+          <LoginForm />
+        </Route>
+        <Route path="/home" render={() => <Home />} />
+        <Route path="/detail/:id" component={Detail} />
+        <Route exact path="/create" component={Form} />
+        <Route exact path="/about" component={About} />
+      </UserAuthContextProvider>
     </div>
   );
 }
