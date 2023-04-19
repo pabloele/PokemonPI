@@ -9,11 +9,15 @@ const openai = new OpenAIApi(configuration);
 
 const generateImage = async (req, res) => {
   try {
-    const response = await openai.createImage({
-      prompt: "pokemon minion",
-      n: 4,
+    const { description } = req.query;
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAa", description);
+    const res = await openai.createImage({
+      prompt: description,
+      n: 1,
       size: "512x512",
     });
+
+    console.log(res);
     const imageUrl = response.data.data[0].url;
 
     // .data.data[0].url;
