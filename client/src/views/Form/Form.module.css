@@ -1,91 +1,168 @@
-@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-.containerPrincipal{
-    background-image: linear-gradient(to bottom, blue, white);
-    display: flex;
-    flex-direction: row;
-    height: 768px;
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+.containerPrincipal {
+  background-image: linear-gradient(to bottom, blue, white);
+  display: flex;
+  flex-direction: row;
+  height: 100vp;
 }
-.left{
-    width:15%;
-    background-color: none;
+.left {
+  width: 15%;
+  background-color: none;
 }
 
 .right {
-    width: 15%;
-    background-color: none;
+  width: 15%;
+  background-color: none;
 }
 .FormContainer {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    background-color: rgba(165, 42, 42, 0.312);
-    justify-content: space-between;
-    align-items: center;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(165, 42, 42, 0.312);
+  justify-content: space-between;
+  align-items: center;
 }
 
-.FormContainer input{
-    display: flex;
-font-family: 'Silkscreen', cursive;
-    height: 100%;
-    width: 100%;
-    border-radius: 15px; 
+.FormContainer input {
+  display: flex;
+  font-family: "Silkscreen", cursive;
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
 }
 
-.FormContainer label{
-    font-family: 'Silkscreen', cursive;
-    padding: 2px;
+.FormContainer label {
+  font-family: "Silkscreen", cursive;
+  padding: 2px;
 }
 
 .tiposSelectorsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
-.tiposSectorsContainer select{
-    font-family: 'Silkscreen', cursive;
-        height: 40px;
-        width: 150px;
-        border: 2px solid black;
-        border-radius: 15px;
-        background-color: rgb(42, 165, 89);
+.tiposSectorsContainer select {
+  font-family: "Silkscreen", cursive;
+  height: 40px;
+  width: 150px;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: rgb(42, 165, 89);
 }
 
 .submit {
-    font-family: 'Press Start 2P', cursive;
-        height: 40px;
-        width: auto;
-        border: 2px solid black;
-        border-radius: 15px;
-        background-color: rgb(153, 165, 42);
-        cursor: pointer;
-        margin-top: 30px;
-        margin-left: 35%;
+  font-family: "Press Start 2P", cursive;
+  height: 40px;
+  width: auto;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: rgb(153, 165, 42);
+  cursor: pointer;
+  position: relative;
+  left: 4em;
+  /* margin-top: 30px;
+  margin-left: 35%; */
+  transition: transform 0.5s;
 }
-.style.cajaTiposYSubmitBtn{
-    /* display: flex;
-    flex-direction: column; */
-    background-color: aqua;
-    justify-content:center;
-    width: 70%;
-    
+.submit:hover {
+  transform: scale(1.2);
+}
 
+.style.cajaTiposYSubmitBtn {
+  /* display: flex;
+    flex-direction: column; */
+  background-color: aqua;
+  justify-content: center;
+  width: 70%;
 }
 
 .cajaBotonSubmit {
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
 }
 
-
+/* .Link {
+  text-decoration: none;
+} */
 .btnBack {
-    font-family: 'Press Start 2P', cursive;
-    height: 40px;
-    width: auto;
-    border: 2px solid black;
-    border-radius: 15px;
-    background-color: rgb(42, 165, 89);
-    cursor: pointer;
-    
+  font-family: "Press Start 2P", cursive;
+  background-color: rgb(42, 165, 89);
+  border: 2px solid black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3em;
+  width: auto;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative;
+  right: 4em;
+  transition: transform 0.5s;
+}
+
+.btnBack:hover {
+  transform: scale(1.2);
+}
+.imgBtnContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+}
+.imgPreviewContainer {
+  background-color: darkgrey;
+  width: 12em;
+  height: 12em;
+}
+
+.formAndImageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-items: space-around;
+}
+.imgItemsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  padding: 2em;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.iaBtn {
+  /* display: inline-block; */
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border: solid rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px;
+  background-image: url("../../resources/img/16414343291667975174-128.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 25% center;
+  transition: transform 0.5s;
+}
+
+.iaBtn:hover {
+  background-color: #4a3e8e;
+  background-image: url("../../resources/img/16414343291667975174-128.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: scale(1.2);
+  background-position: 25% center;
 }

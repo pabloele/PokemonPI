@@ -44,7 +44,7 @@
 }
 
 .registerBtn {
-  width: fit-content;
+  width: 30%;
   height: 3em;
   background-color: #4c7faf;
   display: flex;

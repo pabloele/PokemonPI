@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 //import { getFirestore } from "firebase/firestore";
 import { v4 } from "uuid";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -24,8 +24,12 @@ export const auth = getAuth(app);
 
 export const storage = getStorage(app);
 
+//recibe file, devuelve URL
 export const uploadFile = async (file) => {
   const storageRef = ref(storage, v4());
-  return await uploadBytes(storageRef, file);
+  await uploadBytes(storageRef, file);
+  const url = await getDownloadURL(storageRef);
+  return url;
 };
+
 //export const db = getFirestore(app);

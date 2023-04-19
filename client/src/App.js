@@ -12,7 +12,7 @@ import { auth, uploadFile } from "./firebase-config";
 import LoginForm from "./components/Login/LoginForm";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 import { UserAuthContextProvider } from "./context/authContext";
-
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 //import { doc, setDoc } from "firebase/firestore";
 
 //import "./App.css";
@@ -78,7 +78,7 @@ function App() {
     <div className="App">
       {location.pathname !== "/" && <NavBar />}
       <div className="App">
-        <div>
+        {/* <div>
           <input
             type="text"
             placeholder="Nombre de usuario"
@@ -111,12 +111,12 @@ function App() {
             name="registerPassword"
           />
           <button onClick={register}>crear usuario</button>
-        </div>
+        </div> */}
 
         <div>User logged in: {user?.email}</div>
         <button onClick={logout}>sign out</button>
       </div>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <input
           type="file"
           name="archivo"
@@ -127,7 +127,7 @@ function App() {
         />
 
         <button>Upload</button>
-      </form>
+      </form> */}
       <UserAuthContextProvider>
         <Route exact path="/">
           <Landing />
@@ -138,7 +138,11 @@ function App() {
         <Route exact path="/login">
           <LoginForm />
         </Route>
-        <Route path="/home" render={() => <Home />} />
+        <Route path="/home">
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        </Route>
         <Route path="/detail/:id" component={Detail} />
         <Route exact path="/create" component={Form} />
         <Route exact path="/about" component={About} />

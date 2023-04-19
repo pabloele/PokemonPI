@@ -36,8 +36,11 @@ export default function RegisterForm() {
         <div className={style.cover}>
           <h1></h1>
           <h1>New User </h1>
+
           {error ? (
-            <div className={style.error}>email or password wrong</div>
+            <div className={style.error}>
+              {error.slice(error.lastIndexOf(" ") + 1, -1)}
+            </div>
           ) : null}
           <div className={style.inputsContainer}>
             <input

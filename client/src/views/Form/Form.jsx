@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import style from "./Form.module.css";
 import { getPokes } from "../../redux/actions";
 import { Link } from "react-router-dom";
+import { useUserAuth } from "../../context/authContext";
+import { saveAs } from "file-saver";
 
 const Form = () => {
+  const { uploadFile } = useUserAuth();
+  const [iaPrompt, setIaPrompt] = useState();
   const ExpRegSoloLetras = "^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$";
   const ExpRegUrl = "^https?://[w-]+(.[w-]+)+[/#?]?.*$";
   const { Tipos } = useSelector((state) => state);
@@ -27,7 +31,7 @@ const Form = () => {
     nombre: "",
     imagen: "",
     tipo1: "normal",
-    tipo2: "normal",
+    tipo2: "fighting",
     vida: 0,
     ataque: 0,
     defensa: 0,
@@ -63,7 +67,12 @@ const Form = () => {
       }
 
       if (key === "imagen") {
-        if (formAValidar[key].match(ExpRegUrl) != null) {
+        if (
+          formAValidar[key].match(ExpRegUrl) != null ||
+          form.imagen.indexOf(
+            "https://firebasestorage.googleapis.com/v0/b/pokemon-app-fcd34.appspot.com"
+          ) !== -1
+        ) {
           newErrors[key] = "";
         } else {
           newErrors[key] = "url no válida";
@@ -94,10 +103,11 @@ const Form = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    let result;
 
     const formToBeSubmitted = {
       nombre: form.nombre,
-      imagen: form.imagen,
+      imagen: result ? result : form.imagen,
       tipos_str: `${form.tipo1},${form.tipo2}`,
       vida: form.vida,
       ataque: form.ataque,
@@ -106,7 +116,7 @@ const Form = () => {
       altura: form.altura,
       peso: form.peso,
     };
-
+    console.log("//////////////////", formToBeSubmitted);
     let creado;
     if (
       errores.nombre === "" &&
@@ -128,7 +138,7 @@ const Form = () => {
       alert("Faltan datos o hay errores");
     }
     if (creado) {
-      await dispatch(getPokes());
+      // await dispatch(getPokes());
       alert("Pokemon creado exitosamente!");
     }
   };
@@ -139,10 +149,88 @@ const Form = () => {
       [e.target.name]: e.target.value,
     });
   };
+  // const handleIaCreator = async (e) => {
+  //   try {
+  //     const IaImage = await axios.post(
+  //       `http://localhost:3001/openai?description=${iaPrompt}`
+  //     );
+  //     console.log("IA AAAAAAA:", IaImage.data.data);
+  //     setForm({
+  //       ...form,
+  //       image: IaImage.data.data,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+  // const handleIaCreator = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       `http://localhost:3001/openai?description=${iaPrompt}`
+  //     );
+  //     console.log("IA AAAAAAA:", response.data.data);
 
+  //     const downloadImage = await saveAs(response.data.data, "image.jpg");
+
+  //     console.log("BLOB:            ", downloadImage);
+  //     const e = {
+  //       target: {
+  //         files: response,
+  //       },
+  //     };
+  //     await handleUpload(e);
+  //   } catch (error) {
+  //     console.error(error);
+  //     await handleIaCreator();
+  //   }
+  // };
+  const handleIaCreator = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/openai?description=${iaPrompt}`
+      );
+
+      // Crear un objeto Blob a partir de la respuesta
+      const blob = new Blob([response.data], { type: "image/png" });
+
+      // Guardar el archivo con file-saver
+      saveAs(blob, "image.png");
+
+      // Enviar la imagen a Firebase con handleUpload
+      const e = {
+        target: {
+          files: blob,
+        },
+      };
+      await handleUpload(e);
+    } catch (error) {
+      console.error(error);
+      // await handleIaCreator();
+    }
+  };
+  const handleUpload = async (e) => {
+    // console.log("eeeeeeeeeeeeeeeeeeeeeeeeeee", e);
+    try {
+      const result = await uploadFile(e.target.files[0]);
+      console.log("URL:", result);
+
+      setForm({
+        ...form,
+        imagen: result,
+      });
+      setErrores({
+        ...errores,
+        imagen: "",
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  let imagenSubida;
   return (
     <div className={style.containerPrincipal}>
       <div className={style.left}></div>
+
       <div className={style.FormContainer}>
         <form onSubmit={handleSubmit}>
           <div>
@@ -153,18 +241,7 @@ const Form = () => {
                 type="text"
                 value={form.nombre}
                 onChange={changeHandler}
-                name="nombre"
-              ></input>
-            </div>
-            <div>
-              <label>Imágen: </label>
-              {errores.imagen && <span>{errores.imagen}</span>}
-              <input
-                type="text"
-                value={form.imagen}
-                onChange={changeHandler}
-                name="imagen"
-              ></input>
+                name="nombre"></input>
             </div>
 
             <div>
@@ -174,8 +251,7 @@ const Form = () => {
                 type="number"
                 value={form.vida}
                 onChange={changeHandler}
-                name="vida"
-              ></input>
+                name="vida"></input>
             </div>
             <div>
               <label>Ataque: </label>
@@ -184,8 +260,7 @@ const Form = () => {
                 type="number"
                 value={form.ataque}
                 onChange={changeHandler}
-                name="ataque"
-              ></input>
+                name="ataque"></input>
             </div>
             <div>
               <label>Defensa: </label>
@@ -194,8 +269,7 @@ const Form = () => {
                 type="number"
                 value={form.defensa}
                 onChange={changeHandler}
-                name="defensa"
-              ></input>
+                name="defensa"></input>
             </div>
             <div>
               <label>Velocidad: </label>
@@ -204,8 +278,7 @@ const Form = () => {
                 type="number"
                 value={form.velocidad}
                 onChange={changeHandler}
-                name="velocidad"
-              ></input>
+                name="velocidad"></input>
             </div>
             <div>
               <label>Altura: </label>
@@ -214,8 +287,7 @@ const Form = () => {
                 type="number"
                 value={form.altura}
                 onChange={changeHandler}
-                name="altura"
-              ></input>
+                name="altura"></input>
             </div>
             <div>
               <label>Peso: </label>
@@ -224,47 +296,103 @@ const Form = () => {
                 type="number"
                 value={form.peso}
                 onChange={changeHandler}
-                name="peso"
-              ></input>
+                name="peso"></input>
             </div>
-            <div className={style.cajaTiposYSubmitBtn}>
-              <div className={style.tiposSelectorsContainer}>
-                <div>
-                  <label>Tipo 1:</label>
-                  <select
-                    name="tipo1"
-                    onChange={handleTypesSelector}
-                    value={form.tipo1}
-                  >
-                    {Tipos &&
-                      Tipos.map((e) => <option value={e}>`Tipo {e}`</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label>Tipo 2:</label>
-                  <select
-                    name="tipo2"
-                    onChange={handleTypesSelector}
-                    value={form.tipo2}
-                  >
-                    {Tipos &&
-                      Tipos.map((e) => <option value={e}>`Tipo {e}`</option>)}
-                  </select>
-                </div>
+            <div className={style.tiposSelectorsContainer}>
+              <div>
+                <label>Tipo 1:</label>
+                <select
+                  name="tipo1"
+                  onChange={handleTypesSelector}
+                  value={form.tipo1}>
+                  {Tipos &&
+                    Tipos.map((e) => <option value={e}>`Tipo {e}`</option>)}
+                </select>
               </div>
-              <div className={style.cajaBotonSubmit}>
-                <Link to="/home" className={style.btnBack}>
-                  <button className={style.btnBack}>Volver</button>
-                </Link>
-                <button className={style.submit} type="submit">
-                  SUBMIT
-                </button>
+              <div>
+                <label>Tipo 2:</label>
+                <select
+                  name="tipo2"
+                  onChange={handleTypesSelector}
+                  value={form.tipo2}>
+                  {Tipos &&
+                    Tipos.map((e) =>
+                      e !== form.tipo1 ? (
+                        <option value={e}>`Tipo {e}`</option>
+                      ) : null
+                    )}
+                </select>
+              </div>
+            </div>
+            <div>
+              <label>Imágen: </label>
+              {
+                (imagenSubida =
+                  form.imagen.indexOf(
+                    "https://firebasestorage.googleapis.com/v0/b/pokemon-app-fcd34.appspot.com"
+                  ) !== -1)
+              }
+              {errores.imagen && !imagenSubida && <span>{errores.imagen}</span>}
+              <div
+                style={{
+                  display: imagenSubida ? "none" : "block",
+                }}>
+                <input
+                  type="text"
+                  value={form.imagen}
+                  onChange={changeHandler}
+                  name="imagen"
+                  placeholder="url"
+                  // disabled={imagenSubida}
+                />
+              </div>
+
+              <div className={style.imgItemsContainer}>
+                <div className={style.imgPreviewContainer}>
+                  {imagenSubida && <img src={form.imagen} alt="" />}
+                </div>
+
+                <div className={style.imgBtnContainer}>
+                  <div>
+                    <input
+                      type="file"
+                      name="archivo"
+                      id=""
+                      onChange={handleUpload}
+                    />
+                  </div>
+                  <input
+                    type="text"
+                    value={iaPrompt}
+                    name="iaInput"
+                    onChange={(e) => setIaPrompt(e.target.value)}
+                  />
+                  <div className={style.iaBtn} onClick={handleIaCreator}>
+                    Generate with IA!!
+                  </div>
+                </div>
+
+                <div className={style.cajaBotonSubmit}>
+                  <div>
+                    <Link to="/home" className={style.link}>
+                      <button className={style.btnBack}>Volver</button>
+                    </Link>
+                  </div>
+                  <div>
+                    <button className={style.submit} onClick={handleSubmit}>
+                      SUBMIT
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </form>
+
+        {/* </div> */}
+
+        <div className={style.right}> </div>
       </div>
-      <div className={style.right}></div>
     </div>
   );
 };
