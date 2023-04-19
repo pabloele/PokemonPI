@@ -8,6 +8,7 @@ import { useUserAuth } from "../../context/authContext";
 import { saveAs } from "file-saver";
 
 const Form = () => {
+  const { user } = useUserAuth();
   const { uploadFile } = useUserAuth();
   const [iaPrompt, setIaPrompt] = useState();
   const ExpRegSoloLetras = "^[a-zA-ZñÑáéíóúÁÉÍÓÚ]+$";
@@ -115,6 +116,8 @@ const Form = () => {
       velocidad: form.velocidad,
       altura: form.altura,
       peso: form.peso,
+      UserUid: user.uid,
+      //String(user.uid),
     };
     console.log("//////////////////", formToBeSubmitted);
     let creado;
