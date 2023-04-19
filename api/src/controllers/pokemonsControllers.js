@@ -230,6 +230,41 @@ const getPokemonByQuery = async (name) => {
 
 // CREA UN POKEMON > LO GUARDA EN LA BASE DE DATOS Y ESTABLECE LA(S) RELACION(ES) CON SU(S) TIPOS
 
+// const createPokemon = async (
+//   nombre,
+//   imagen,
+//   vida,
+//   ataque,
+//   defensa,
+//   velocidad,
+//   altura,
+//   peso,
+//   tipos,
+//   UserUid
+// ) => {
+//   // CREA EL POKEMON
+
+//   const newPokecito = await Pokemon.create({
+//     nombre: nombre,
+//     imagen,
+//     vida,
+//     ataque,
+//     defensa,
+//     velocidad,
+//     altura,
+//     peso,
+//     UserUid,
+//   });
+//   console.log("newPokecito:", newPokecito);
+//   // ESTABLECE LAS RELACIONES DEL NUEVO POKEMON CON TODOS LOS TIPOS QUE LLEGAN EN EL ARRAY 'tipos'
+
+//   let idType;
+
+//   tipos.forEach(async (e) => {
+//     idType = await idTypeByNombre(e); // OBTIENE EL ID DEL TIPO
+//     await newPokecito.addTipo(idType); // ESTABLECE LA RELACION
+//   });
+// };
 const createPokemon = async (
   nombre,
   imagen,
@@ -239,7 +274,8 @@ const createPokemon = async (
   velocidad,
   altura,
   peso,
-  tipos
+  tipos,
+  UserUid
 ) => {
   // CREA EL POKEMON
 
@@ -252,16 +288,15 @@ const createPokemon = async (
     velocidad,
     altura,
     peso,
+    UserUid,
   });
-
+  console.log("/////////////////////////////////////////", newPokecito);
   // ESTABLECE LAS RELACIONES DEL NUEVO POKEMON CON TODOS LOS TIPOS QUE LLEGAN EN EL ARRAY 'tipos'
 
-  let idType;
-
-  tipos.forEach(async (e) => {
-    idType = await idTypeByNombre(e); // OBTIENE EL ID DEL TIPO
+  for (const tipo of tipos) {
+    const idType = await idTypeByNombre(tipo); // OBTIENE EL ID DEL TIPO
     await newPokecito.addTipo(idType); // ESTABLECE LA RELACION
-  });
+  }
 };
 
 const destroyPoke = async (id) => {

@@ -62,6 +62,7 @@ const createPokemonHandler = async (req, res) => {
       velocidad,
       altura,
       peso,
+      UserUid,
     } = req.body;
 
     const tipos = tipos_str.split(",");
@@ -75,7 +76,8 @@ const createPokemonHandler = async (req, res) => {
       velocidad,
       altura,
       peso,
-      tipos
+      tipos,
+      UserUid
     );
 
     res
